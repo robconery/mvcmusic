@@ -65,8 +65,7 @@
   <ItemGroup>
     <Compile Include="controllers\AccountController.cs" />
     <Compile Include="controllers\AlbumsController.cs" />
-    <Compile Include="controllers\CheckoutController.cs" />
-    <Compile Include="controllers\Default1Controller.cs" />
+    <Compile Include="controllers\OrdersController.cs" />
     <Compile Include="controllers\HomeController.cs" />
     <Compile Include="controllers\ShoppingCartController.cs" />
     <Compile Include="controllers\StoreController.cs" />
@@ -81,15 +80,19 @@
     <Compile Include="models\MusicStoreEntities.cs" />
     <Compile Include="models\Order.cs" />
     <Compile Include="models\OrderDetail.cs" />
+    <Compile Include="models\OrderNote.cs" />
     <Compile Include="models\SampleData.cs" />
     <Compile Include="models\ShoppingCart.cs" />
+    <Compile Include="models\Transaction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="models\ShoppingCartRemoveViewModel.cs" />
     <Compile Include="models\ShoppingCartViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\MvcMusicStore.sdf" />
     <Content Include="assets\css\bootstrap-responsive.min.css" />
     <Content Include="assets\css\bootstrap.min.css" />
+    <Content Include="assets\css\overrides.css" />
     <Content Include="assets\js\bootstrap-collapse.js" />
     <Content Include="assets\js\bootstrap.min.js" />
     <Content Include="assets\images\home-showcase.png" />
@@ -130,9 +133,6 @@
     <Content Include="views\Store\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="views\Albums\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -155,12 +155,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="views\ShoppingCart\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="views\Checkout\AddressAndPayment.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="views\Checkout\Complete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="views\ShoppingCart\CartSummary.cshtml" />

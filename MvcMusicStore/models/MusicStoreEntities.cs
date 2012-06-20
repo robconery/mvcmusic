@@ -10,5 +10,7 @@ namespace MvcMusicStore.Models
         public DbSet<Cart> Carts { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
+        public DbSet<OrderNote> OrderNotes { get; set; }
+        public DbSet<Transaction> Transactions { get; set; }
     }
 }

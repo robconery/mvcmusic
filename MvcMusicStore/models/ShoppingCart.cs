@@ -52,8 +52,6 @@ c => c.CartId == ShoppingCartId
                 // If the item does exist in the cart, then add one to the quantity
                 cartItem.Count++;
             }
-
-            // Save changes
             storeDB.SaveChanges();
         }
 
@@ -139,7 +137,8 @@ cart => cart.CartId == ShoppingCartId
                     AlbumId = item.AlbumId,
                     OrderId = order.OrderId,
                     UnitPrice = item.Album.Price,
-                    Quantity = item.Count
+                    Quantity = item.Count,
+                    
                 };
 
                 // Set the order total of the shopping cart

@@ -48,7 +48,6 @@ namespace MvcMusicStore.Models
         [StringLength(40)]
         public string Country { get; set; }
 
-        [Required(ErrorMessage = "Phone is required")]
         [StringLength(24)]
         public string Phone { get; set; }
 
@@ -63,5 +62,7 @@ namespace MvcMusicStore.Models
         public decimal Total { get; set; }
 
         public List<OrderDetail> OrderDetails { get; set; }
+        public List<OrderNote> Notes { get; set; }
+        public List<Transaction> Transactions { get; set; }
     }
 }
