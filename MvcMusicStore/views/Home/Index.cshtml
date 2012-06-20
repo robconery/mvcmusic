@@ -4,8 +4,8 @@
 }
 
 <div class="container">
-    <div class="hero-unit">
-        <h1>Fresh off the grill</h1>
+    <div  id="splash" class="row span12">
+       <img src="/assets/images/home-showcase.png" />
     </div>
     <div class="row">
         <div class="span12">
@@ -18,7 +18,13 @@
                             <img alt="@album.Title" src="/assets/images/@album.AlbumArtUrl" width="260"/>
                         </a>
                         <h5>@album.Title</h5>
-                        <p>@album.Price</p>             
+                        <p>@album.Price</p>     
+                        <p class="button">
+                            <a class="btn btn-primary" href = "@Url.Action("AddToCart", "ShoppingCart", new { id = album.AlbumId })">
+                                <i class="icon icon-shopping-cart icon-white"></i>
+                                Add To Cart
+                            </a>
+                        </p>        
                     </div>
 
                 </li>

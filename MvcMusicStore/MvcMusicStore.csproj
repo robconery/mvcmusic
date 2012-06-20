@@ -70,7 +70,6 @@
     <Compile Include="controllers\HomeController.cs" />
     <Compile Include="controllers\ShoppingCartController.cs" />
     <Compile Include="controllers\StoreController.cs" />
-    <Compile Include="controllers\AdminController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
