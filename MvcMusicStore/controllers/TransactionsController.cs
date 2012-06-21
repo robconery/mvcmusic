@@ -8,6 +8,7 @@ using System.Data;
 
 namespace MvcMusicStore.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class TransactionsController : DbController
     {
         //

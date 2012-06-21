@@ -1,14 +1,17 @@
 <#@ template language="C#" HostSpecific="True" #>
 <#
 MvcTextTemplateHost mvcHost = (MvcTextTemplateHost)(Host);
-string ModelName = mvcHost.ControllerRootName;
-string EntitySet = mvcHost.ControllerName;
+
+string EntitySet = mvcHost.ControllerName.Replace("Controller","");
+string ModelName = EntitySet.TrimEnd(new char[]{'s'});
 #>
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data;
+using System.Data.Entity;
 using MvcMusicStore.Models;
 
 namespace <#= mvcHost.Namespace #>
@@ -36,7 +39,7 @@ if(mvcHost.AddActionMethods) {
         } 
 
         [HttpPost]
-        public ActionResult Create(<#=EntitySet#> item)
+        public ActionResult Create(<#=ModelName#> item)
         {
             if (ModelState.IsValid)
             {
@@ -56,7 +59,7 @@ if(mvcHost.AddActionMethods) {
 
 
         [HttpPost]
-        public ActionResult Edit(<#=EntitySet#> item)
+        public ActionResult Edit(<#=ModelName#> item)
         {
             if (ModelState.IsValid)
             {
@@ -67,7 +70,7 @@ if(mvcHost.AddActionMethods) {
         }
 
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id)
         {
             var item = db.<#=EntitySet#>.Find(id);
             db.<#=EntitySet#>.Remove(item);

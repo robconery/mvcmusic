@@ -16,6 +16,7 @@ namespace MvcMusicStore.Controllers
         //
         // GET: /Default1/
 
+        [Authorize(Roles = "Administrator")]
         public ViewResult Index()
         {
             return View(db.Orders.ToList());
@@ -34,6 +35,12 @@ namespace MvcMusicStore.Controllers
                 .Where(x => x.OrderId == id).FirstOrDefault();
 
             return View(order);
+        }
+
+        //The Checkout Page
+        public ActionResult Create()
+        {
+            return View();
         }
 
         //
@@ -87,16 +94,8 @@ namespace MvcMusicStore.Controllers
         } 
 
         //
-        // POST: /Default1/Create
-
-        public ActionResult Create()
-        {
-            return View();
-        }
-        
-        //
         // GET: /Default1/Edit/5
- 
+        [Authorize(Roles = "Administrator")]
         public ActionResult Edit(int id)
         {
             //grab it all at once to avoid late-bound, extra lazy queries
@@ -109,10 +108,8 @@ namespace MvcMusicStore.Controllers
             return View(order);
         }
 
-        //
-        // POST: /Default1/Edit/5
-
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Edit(Order order)
         {
             if (ModelState.IsValid)
@@ -125,7 +122,7 @@ namespace MvcMusicStore.Controllers
 
         //
         // GET: /Default1/Delete/5
- 
+        [Authorize(Roles = "Administrator")]
         public ActionResult Delete(int id)
         {
             Order order = db.Orders.Find(id);
@@ -136,6 +133,7 @@ namespace MvcMusicStore.Controllers
         // POST: /Default1/Delete/5
 
         [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "Administrator")]
         public ActionResult DeleteConfirmed(int id)
         {            
             Order order = db.Orders.Find(id);

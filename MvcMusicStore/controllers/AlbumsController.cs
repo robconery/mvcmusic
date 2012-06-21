@@ -9,7 +9,7 @@ using MvcMusicStore.Models;
 
 namespace MvcMusicStore.Controllers
 {
-    [Authorize(Roles = "Administrator")]
+    
     public class AlbumsController : DbController
     {
         //
@@ -32,7 +32,7 @@ namespace MvcMusicStore.Controllers
 
         //
         // GET: /StoreManager/Create
-
+        [Authorize(Roles = "Administrator")]
         public ActionResult Create()
         {
             ViewBag.GenreId = new SelectList(db.Genres, "GenreId", "Name");
@@ -44,6 +44,7 @@ namespace MvcMusicStore.Controllers
         // POST: /StoreManager/Create
 
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Create(Album album)
         {
             if (ModelState.IsValid)
@@ -59,7 +60,7 @@ namespace MvcMusicStore.Controllers
 
         //
         // GET: /StoreManager/Edit/5
-
+        [Authorize(Roles = "Administrator")]
         public ActionResult Edit(int id)
         {
             Album album = db.Albums.Find(id);
@@ -72,6 +73,7 @@ namespace MvcMusicStore.Controllers
         // POST: /StoreManager/Edit/5
 
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Edit(Album album)
         {
             if (ModelState.IsValid)
@@ -86,7 +88,7 @@ namespace MvcMusicStore.Controllers
 
         //
         // GET: /StoreManager/Delete/5
-
+        [Authorize(Roles = "Administrator")]
         public ActionResult Delete(int id)
         {
             Album album = db.Albums.Find(id);
@@ -95,7 +97,7 @@ namespace MvcMusicStore.Controllers
 
         //
         // POST: /StoreManager/Delete/5
-
+        [Authorize(Roles = "Administrator")]
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {

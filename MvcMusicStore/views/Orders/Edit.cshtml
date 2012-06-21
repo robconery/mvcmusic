@@ -16,17 +16,23 @@
         </div>
         <div class='centered row' id='submenu'>
             <ul class='hlist'>
-                <li><i class='icon icon-edit'></i>Add Note </li>
-                <li><i class='icon icon-plus-sign'></i>Add Item </li>
-                <li><i class='icon icon-leaf'></i>Fix Payment </li>
-                <li><i class='icon icon-envelope'></i>Email Customer </li>
-                <li><i class='icon icon-file'></i>Resend Invoice </li>
-                <li class='last'><i class='icon icon-trash'></i>Delete </li>
+                <li><i class='icon icon-edit'></i>
+                    <a href="@Url.Action("create","ordernotes",new {id = Model.OrderId})">
+                        Add Note
+                    </a>
+                </li>
+                <li><i class='icon icon-envelope'></i>
+                    <a href = "mailto:@Model.Email">Email Customer</a>
+                </li>
+                <li class='last'>
+                    @Forms.DeleteButton(Url.Action("delete","orders",new {id = Model.OrderId}),Model.OrderId)
+                </li>
             </ul>
         </div>
         <div class='row nudge-top'>
             <div class='span4'>
                 <div class='well'>
+                    <h4>Customer</h4>
                     <table class='left-right'>
                         <tr>
                             <td class='attribute'>
@@ -37,6 +43,29 @@
                                     @Model.Email</h5>
                             </td>
                         </tr>
+                    </table>
+                </div>
+                 <div class='well nudge-top'>
+                    <h4> Notes</h4>
+                    <table>
+                        @foreach (var note in @Model.Notes)
+                        {
+                        <tr>
+                            <td class='attribute' width = "90">
+                                <span class='label'>@note.CreatedOn.ToLongTimeString()</span>
+                            </td>
+                            <td class='value'>
+                                <a href="@Url.Action("edit","ordernotes",new {id = note.Id})">
+                                    @note.Note
+                                </a>
+                                
+                            </td>
+                            <td>
+                                @Forms.DeleteButton(Url.Action("delete","ordernotes"),note.Id,true)
+                            </td>
+                        </tr>                                    
+                        }
+
                     </table>
                 </div>
             </div>
@@ -155,28 +184,10 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class='row'>
-                        <div class='span7'>
-                            <h4>
-                                Notes</h4>
-                            <table>
-                                @foreach (var note in @Model.Notes)
-                                {
-                                <tr>
-                                    <td class='attribute'>
-                                        <span class='label'>@note.CreatedOn.ToLongTimeString()</span>
-                                    </td>
-                                    <td class='value'>
-                                        @note.Note
-                                    </td>
-                                </tr>                                    
-                                }
 
-                            </table>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+@Forms.DeleteConfirmScript()

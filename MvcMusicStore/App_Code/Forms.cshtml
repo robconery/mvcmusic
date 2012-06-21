@@ -54,3 +54,32 @@
 @helper HiddenID(object id){
     <input type="hidden" name="ID" id="ID" value="@id" />
 }
+
+@helper DeleteButton(string actionUrl,int itemId, bool iconOnly=false) {
+    <form class="delForm" action="@actionUrl" method="post" style = "display:inline">
+        <input type="hidden" name="id" value="@itemId" />
+        <button type="submit" class="btn btn-danger">
+            <i class="icon icon-remove icon-white"></i>
+            @if(!iconOnly){
+               <span>Delete</span>
+            }
+        </button>
+    </form>
+}
+
+@helper DeleteConfirmScript(){   
+    <script type="text/javascript">
+        $().ready(function () {
+            $(".delForm").submit(function () {
+                return confirm("Delete this record? Are you sure?");
+            });
+        });
+    </script>
+}
+
+@helper EditButton(string url){
+    <a href="@url" class="btn btn-info">
+        <i class="icon icon-edit icon-white"></i>
+        Edit
+    </a>
+}

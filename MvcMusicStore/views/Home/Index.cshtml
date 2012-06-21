@@ -14,7 +14,7 @@
                 {
                 <li class="span3">
                     <div class = "thumbnail">
-                        <a href="@Url.Action("Details", "Store",new { id = album.AlbumId })">
+                        <a href="@Url.Action("details", "albums",new { id = album.AlbumId })">
                             <img alt="@album.Title" src="/assets/images/@album.AlbumArtUrl" width="260"/>
                         </a>
                         <h5>@album.Title</h5>
