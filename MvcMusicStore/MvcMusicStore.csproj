@@ -70,6 +70,7 @@
     <Compile Include="controllers\HomeController.cs" />
     <Compile Include="controllers\ShoppingCartController.cs" />
     <Compile Include="controllers\StoreController.cs" />
+    <Compile Include="controllers\TransactionsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -182,6 +183,21 @@
   <ItemGroup>
     <Content Include="App_Code\Forms.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="CodeTemplates\AddController\Controller.tt" />
+    <None Include="CodeTemplates\AddView\CSHTML\Create.tt" />
+    <None Include="CodeTemplates\AddView\CSHTML\Details.tt" />
+    <None Include="CodeTemplates\AddView\CSHTML\Edit.tt" />
+    <None Include="CodeTemplates\AddView\CSHTML\List.tt" />
+    <Content Include="views\Transactions\Index.cshtml" />
+    <Content Include="views\Transactions\Details.cshtml" />
+    <Content Include="views\Transactions\Create.cshtml" />
+    <Content Include="views\Transactions\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

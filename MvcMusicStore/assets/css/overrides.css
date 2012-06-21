@@ -55,3 +55,8 @@ ul.hlist li{
 {
     margin-top:36px;
 }
+.well
+{
+    background-color:#fff;
+    border:2px solid #ccc;
+}
