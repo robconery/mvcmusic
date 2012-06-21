@@ -7,16 +7,17 @@ using System.Web.Routing;
 using System.Web.Security;
 using Mvc3ToolsUpdateWeb_Default.Models;
 using MvcMusicStore.Models;
+using MvcMusicStore.Controllers;
 
 namespace Mvc3ToolsUpdateWeb_Default.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : DbController
     {
 
         private void MigrateShoppingCart(string UserName)
         {
             // Associate shopping cart items with logged-in user
-            var cart = ShoppingCart.GetCart(this.HttpContext);
+            var cart = ShoppingCart.GetCart(db, this.HttpContext);
 
             cart.MigrateCart(UserName);
             Session[ShoppingCart.CartSessionKey] = UserName;

@@ -6,12 +6,12 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MvcMusicStore.Models;
+using MvcMusicStore.Controllers;
 
-namespace MvcMusicStore.controllers
+namespace MvcMusicStore.Controllers
 { 
-    public class OrdersController : Controller
+    public class OrdersController : DbController
     {
-        private MusicStoreEntities db = new MusicStoreEntities();
         const string PromoCode = "FREE";
         //
         // GET: /Default1/
@@ -27,18 +27,13 @@ namespace MvcMusicStore.controllers
         public ViewResult Details(int id)
         {
             // Validate customer owns this order
-            bool isValid = db.Orders.Any(
-                o => o.OrderId == id &&
-                o.Username == User.Identity.Name);
+            Order order = db.Orders
+                .Include("Transactions")
+                .Include("OrderDetails")
+                .Include("Notes")
+                .Where(x => x.OrderId == id).FirstOrDefault();
 
-            if (isValid)
-            {
-                return View(id);
-            }
-            else
-            {
-                return View("Error");
-            }
+            return View(order);
         }
 
         //
@@ -63,30 +58,26 @@ namespace MvcMusicStore.controllers
 
                     //Save Order
                     db.Orders.Add(order);
-                    //flush the changes - we need the order id
-                    //which is silly
-                    db.SaveChanges();
 
                     //Process the order
-                    var cart = ShoppingCart.GetCart(this.HttpContext);
+                    var cart = ShoppingCart.GetCart(db, this.HttpContext);
                     cart.CreateOrder(order);
-                    
-
                     
                     //add a note
                     order.Notes = new List<OrderNote>();
                     order.Transactions = new List<Transaction>();
-                    order.Notes.Add(new OrderNote { Note = "Preparing Order", CreatedOn = DateTime.Now, OrderId = order.OrderId });
+                    order.Notes.Add(new OrderNote { Note = "Preparing Order", CreatedOn = DateTime.Now});
                     
                     //auth the charge...
                     order.Transactions.Add(new Transaction { Processor = "coupon", Authorization = PromoCode, Amount = cart.GetTotal(), CreatedOn = DateTime.Now, Discount = 0, OrderId = order.OrderId });
-                    order.Notes.Add(new OrderNote { Note = "Transaction Authorized by Coupon: " + PromoCode, CreatedOn = DateTime.Now, OrderId = order.OrderId });
+                    order.Notes.Add(new OrderNote { Note = "Transaction Authorized by Coupon: " + PromoCode, CreatedOn = DateTime.Now});
 
                     //send a thank you note via email
-                    order.Notes.Add(new OrderNote { Note = "Thank You Invoice Email Sent", CreatedOn = DateTime.Now, OrderId = order.OrderId });
+                    order.Notes.Add(new OrderNote { Note = "Thank You Invoice Email Sent", CreatedOn = DateTime.Now});
 
-                    //save it down
+                    //flush it since we need the new id
                     db.SaveChanges();
+                    //save it down
                     return RedirectToAction("Details",
                         new { id = order.OrderId });
                 }
@@ -108,7 +99,13 @@ namespace MvcMusicStore.controllers
  
         public ActionResult Edit(int id)
         {
-            Order order = db.Orders.Find(id);
+            //grab it all at once to avoid late-bound, extra lazy queries
+            Order order = db.Orders
+                .Include("Transactions")
+                .Include("OrderDetails")
+                .Include("Notes")
+                .Where(x => x.OrderId == id).FirstOrDefault();
+
             return View(order);
         }
 
@@ -121,7 +118,6 @@ namespace MvcMusicStore.controllers
             if (ModelState.IsValid)
             {
                 db.Entry(order).State = EntityState.Modified;
-                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(order);
@@ -144,14 +140,8 @@ namespace MvcMusicStore.controllers
         {            
             Order order = db.Orders.Find(id);
             db.Orders.Remove(order);
-            db.SaveChanges();
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            db.Dispose();
-            base.Dispose(disposing);
-        }
     }
 }

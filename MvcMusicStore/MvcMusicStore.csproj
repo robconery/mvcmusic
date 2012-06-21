@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="controllers\AccountController.cs" />
     <Compile Include="controllers\AlbumsController.cs" />
+    <Compile Include="controllers\DbController.cs" />
     <Compile Include="controllers\OrdersController.cs" />
     <Compile Include="controllers\HomeController.cs" />
     <Compile Include="controllers\ShoppingCartController.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="helpers\Gravatar.cs" />
     <Compile Include="models\AccountModels.cs" />
     <Compile Include="models\Album.cs" />
     <Compile Include="models\Artist.cs" />
@@ -176,6 +178,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="views\Orders\Delete.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Code\Forms.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

@@ -8,31 +8,35 @@ namespace MvcMusicStore.Models
 {
     public partial class ShoppingCart
     {
-        MusicStoreEntities storeDB = new MusicStoreEntities();
-
+        MusicStoreEntities _db;
         string ShoppingCartId { get; set; }
+
+        public ShoppingCart(MusicStoreEntities db)
+        {
+            _db = db;
+        }
 
         public const string CartSessionKey = "CartId";
 
-        public static ShoppingCart GetCart(HttpContextBase context)
+        public static ShoppingCart GetCart(MusicStoreEntities db, HttpContextBase context)
         {
-            var cart = new ShoppingCart();
+            var cart = new ShoppingCart(db);
             cart.ShoppingCartId = cart.GetCartId(context);
             return cart;
         }
 
         // Helper method to simplify shopping cart calls
-        public static ShoppingCart GetCart(Controller controller)
+        public static ShoppingCart GetCart(MusicStoreEntities db, Controller controller)
         {
-            return GetCart(controller.HttpContext);
+            return GetCart(db,controller.HttpContext);
         }
 
         public void AddToCart(Album album)
         {
             // Get the matching cart and album instances
-            var cartItem = storeDB.Carts.SingleOrDefault(
-c => c.CartId == ShoppingCartId
-&& c.AlbumId == album.AlbumId);
+            var cartItem = _db.Carts.SingleOrDefault(
+                c => c.CartId == ShoppingCartId
+                && c.AlbumId == album.AlbumId);
 
             if (cartItem == null)
             {
@@ -45,22 +49,21 @@ c => c.CartId == ShoppingCartId
                     DateCreated = DateTime.Now
                 };
 
-                storeDB.Carts.Add(cartItem);
+                _db.Carts.Add(cartItem);
             }
             else
             {
                 // If the item does exist in the cart, then add one to the quantity
                 cartItem.Count++;
             }
-            storeDB.SaveChanges();
         }
 
         public int RemoveFromCart(int id)
         {
             // Get the cart
-            var cartItem = storeDB.Carts.Single(
-cart => cart.CartId == ShoppingCartId
-&& cart.RecordId == id);
+            var cartItem = _db.Carts.Single(
+                cart => cart.CartId == ShoppingCartId
+                && cart.RecordId == id);
 
             int itemCount = 0;
 
@@ -73,11 +76,9 @@ cart => cart.CartId == ShoppingCartId
                 }
                 else
                 {
-                    storeDB.Carts.Remove(cartItem);
+                    _db.Carts.Remove(cartItem);
                 }
 
-                // Save changes
-                storeDB.SaveChanges();
             }
 
             return itemCount;
@@ -85,26 +86,24 @@ cart => cart.CartId == ShoppingCartId
 
         public void EmptyCart()
         {
-            var cartItems = storeDB.Carts.Where(cart => cart.CartId == ShoppingCartId);
+            var cartItems = _db.Carts.Where(cart => cart.CartId == ShoppingCartId);
 
             foreach (var cartItem in cartItems)
             {
-                storeDB.Carts.Remove(cartItem);
+                _db.Carts.Remove(cartItem);
             }
 
-            // Save changes
-            storeDB.SaveChanges();
         }
 
         public List<Cart> GetCartItems()
         {
-            return storeDB.Carts.Where(cart => cart.CartId == ShoppingCartId).ToList();
+            return _db.Carts.Where(cart => cart.CartId == ShoppingCartId).ToList();
         }
 
         public int GetCount()
         {
             // Get the count of each item in the cart and sum them up
-            int? count = (from cartItems in storeDB.Carts
+            int? count = (from cartItems in _db.Carts
                           where cartItems.CartId == ShoppingCartId
                           select (int?)cartItems.Count).Sum();
 
@@ -117,7 +116,7 @@ cart => cart.CartId == ShoppingCartId
             // Multiply album price by count of that album to get 
             // the current price for each of those albums in the cart
             // sum all album price totals to get the cart total
-            decimal? total = (from cartItems in storeDB.Carts
+            decimal? total = (from cartItems in _db.Carts
                               where cartItems.CartId == ShoppingCartId
                               select (int?)cartItems.Count * cartItems.Album.Price).Sum();
             return total ?? decimal.Zero;
@@ -132,27 +131,27 @@ cart => cart.CartId == ShoppingCartId
             // Iterate over the items in the cart, adding the order details for each
             foreach (var item in cartItems)
             {
+                var album = _db.Albums.Find(item.AlbumId);
+                
                 var orderDetail = new OrderDetail
                 {
-                    AlbumId = item.AlbumId,
-                    OrderId = order.OrderId,
-                    UnitPrice = item.Album.Price,
+                    Sku = album.Title.ToLower().Replace(" ","-"),
+                    Name = album.Title,
+                    Discount =0,
+                    UnitPrice = album.Price,
                     Quantity = item.Count,
                     
                 };
 
                 // Set the order total of the shopping cart
-                orderTotal += (item.Count * item.Album.Price);
+                orderTotal += (orderDetail.LineTotal);
 
-                storeDB.OrderDetails.Add(orderDetail);
+                _db.OrderDetails.Add(orderDetail);
 
             }
 
             // Set the order's total to the orderTotal count
             order.Total = orderTotal;
-
-            // Save the order
-            storeDB.SaveChanges();
 
             // Empty the shopping cart
             EmptyCart();
@@ -187,13 +186,13 @@ cart => cart.CartId == ShoppingCartId
         // be associated with their username
         public void MigrateCart(string userName)
         {
-            var shoppingCart = storeDB.Carts.Where(c => c.CartId == ShoppingCartId);
+            var shoppingCart = _db.Carts.Where(c => c.CartId == ShoppingCartId);
 
             foreach (Cart item in shoppingCart)
             {
                 item.CartId = userName;
             }
-            storeDB.SaveChanges();
+
         }
     }
 }
