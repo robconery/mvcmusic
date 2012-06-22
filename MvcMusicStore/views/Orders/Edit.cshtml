@@ -3,8 +3,7 @@
 @{
     ViewBag.Title = "Edit";
 }
-
-
+<script src="/assets/js/order_manager.js" type="text/javascript"></script>
 <div id='normal'>
     <div class='container'>
         <div class='row nudge-top'>
@@ -50,32 +49,31 @@
                  <div class='well nudge-top'>
                     <h4> Notes</h4>
                     <table>
-                        @foreach (var note in @Model.Notes)
-                        {
+                        <tbody>
+                        <!-- ko foreach: Notes -->
                         <tr>
-                            <td class='attribute' width = "90">
-                                <span class='label'>@note.CreatedOn.ToLongTimeString()</span>
+                            <td width ='95'>
+                                <span class="label" data-bind = "text : $parent.parseDate(CreatedOn)"></span>
                             </td>
-                            <td class='value'>
-                                <a href="@Url.Action("edit","ordernotes",new {id = note.Id})">
-                                    @note.Note
-                                </a>
-                                
+                            <td >
+                                <a data-bind = "attr : {href : $parent.editNoteUrl(Id)}, text : Note"></a>
                             </td>
                             <td>
-                                @Forms.DeleteButton(Url.Action("delete","ordernotes"),note.Id,true)
+                                <button class = "btn btn-danger" data-bind = "click : $parent.deleteNote">
+                                    <i class="icon icon-remove icon-white"></i>
+                                </button>
+
                             </td>
                         </tr>                                    
-                        }
-
+                        <!-- /ko -->
+                        </tbody>
                     </table>
                 </div>
             </div>
             <div class='span7'>
                 <div class='row span7'>
                     <div class='well'>
-                        <form accept-charset="UTF-8" action="/orders/13487" method="post" novalidate="novalidate">
-
+                        <form id="orderForm" data-bind="submit:saveOrder" method="post">
                             <label for="FirstName">Email</label>
                             <input name="FirstName" data-bind="value : FirstName" />  
                                                       
@@ -214,18 +212,13 @@
         </div>
     </div>
 </div>
+
 @Forms.DeleteConfirmScript()
 <script type="text/javascript">
-
-    var orderViewModel = function () {
-
-        this.Email = ko.observable("@Model.Email");
-        this.FirstName = ko.observable("@Model.FirstName");
-        this.LastName = ko.observable("@Model.LastName");
-        this.FullName = ko.computed(function () {
-            return this.FirstName() + " " + this.LastName();
-        }, this);
-    }
-    ko.applyBindings(new orderViewModel());
+    
+    $().ready(function(){
+        var order = @Html.Raw(ViewBag.OrderJson);
+        ko.applyBindings(new orderViewModel(order));
+    });
 
 </script>

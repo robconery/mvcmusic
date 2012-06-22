@@ -102,6 +102,7 @@
     <Content Include="assets\images\home-showcase.png" />
     <Content Include="assets\images\logo.png" />
     <Content Include="assets\images\placeholder.gif" />
+    <Content Include="assets\js\order_manager.js" />
     <Content Include="Global.asax" />
     <Content Include="assets\images\glyphicons-halflings-white.png" />
     <Content Include="assets\images\glyphicons-halflings.png" />

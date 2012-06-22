@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using MvcMusicStore.Models;
 using MvcMusicStore.Controllers;
+using System.Web.Script.Serialization;
 
 namespace MvcMusicStore.Controllers
 { 
@@ -134,20 +135,28 @@ namespace MvcMusicStore.Controllers
                 .Include("Notes")
                 .Where(x => x.OrderId == id).FirstOrDefault();
 
+            var serializer = new JavaScriptSerializer();
+            ViewBag.OrderJson = serializer.Serialize(order);
+            
             return View(order);
         }
 
         [HttpPost]
         [Authorize(Roles = "Administrator")]
-        public ActionResult Edit(Order order)
+        public ActionResult Edit(int id, FormCollection form)
         {
+            var order = db.Orders.Find(id);
+            TryUpdateModel<Order>(order);
             if (ModelState.IsValid)
             {
                 db.Entry(order).State = EntityState.Modified;
-                return RedirectToAction("Index");
+                return Json(new { success = true, message = "Order Saved!" });
             }
-            return View(order);
-        }
+            else
+            {
+                return Json(new { success = false, message = "The information you provided is invalid" });
+            }
+         }
 
         //
         // GET: /Default1/Delete/5
