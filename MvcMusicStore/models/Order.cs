@@ -8,6 +8,13 @@ namespace MvcMusicStore.Models
     [Bind(Exclude = "OrderId")]
     public partial class Order
     {
+        public Order()
+        {
+            this.Status = "open";
+            this.Notes = new List<OrderNote>();
+            this.Transactions = new List<Transaction>();
+        }
+        
         [ScaffoldColumn(false)]
         public int OrderId { get; set; }
 
@@ -61,8 +68,12 @@ namespace MvcMusicStore.Models
         [ScaffoldColumn(false)]
         public decimal Total { get; set; }
 
+        [Required]
+        public string Status { get; set; }
+            
         public List<OrderDetail> OrderDetails { get; set; }
         public List<OrderNote> Notes { get; set; }
         public List<Transaction> Transactions { get; set; }
+
     }
 }

@@ -73,6 +73,9 @@ namespace MvcMusicStore.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(item).State = EntityState.Modified;
+                var order = db.Orders.Find(item.OrderId);
+                order.Notes.Add(new OrderNote { Note = "Transaction " + item.Id + " changed by " + User.Identity.Name });
+                return RedirectToAction("edit", "orders", new { id = order.OrderId });
             }
 
             return View(item);
@@ -86,7 +89,9 @@ namespace MvcMusicStore.Controllers
         {
             var item = db.Transactions.Find(id);
             db.Transactions.Remove(item);
-            return RedirectToAction("Index");
+            var order = db.Orders.Find(item.OrderId);
+            order.Notes.Add(new OrderNote { Note = "Transaction " + item.Id + " removed by " + User.Identity.Name });
+            return RedirectToAction("edit", "orders", new { id = order.OrderId });
         }
     }
 }

@@ -22,6 +22,23 @@ namespace MvcMusicStore.Controllers
             return View(db.Orders.ToList());
         }
 
+        public ActionResult Refund(int id){
+            var order = db.Orders.Find(id);
+            order.Status = "refunded";
+            order.Notes = new List<OrderNote>();
+            order.Notes.Add(new OrderNote { Note = "Order Refunded: Authorization XYZ", CreatedOn = DateTime.Now });
+            TempData["message"] = "Order Refunded";
+            return RedirectToAction("edit", new {id = id});
+        }
+        public ActionResult Void(int id)
+        {
+            var order = db.Orders.Find(id);
+            order.Status = "voided";
+            order.Notes = new List<OrderNote>();
+            order.Notes.Add(new OrderNote { Note = "Order Voided", CreatedOn = DateTime.Now });
+            TempData["message"] = "Order Voided by " + User.Identity.Name;
+            return RedirectToAction("edit", new { id = id });
+        }
         //
         // GET: /Default1/Details/5
 
@@ -40,7 +57,8 @@ namespace MvcMusicStore.Controllers
         //The Checkout Page
         public ActionResult Create()
         {
-            return View();
+            
+            return View(ShoppingCart.GetCart(db,this.HttpContext));
         }
 
         //
@@ -81,7 +99,9 @@ namespace MvcMusicStore.Controllers
 
                     //send a thank you note via email
                     order.Notes.Add(new OrderNote { Note = "Thank You Invoice Email Sent", CreatedOn = DateTime.Now});
-
+                    
+                    //set the status as paid. Simplistic, but will work for now
+                    order.Status = "paid";
                     //flush it since we need the new id
                     db.SaveChanges();
                     //save it down

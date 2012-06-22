@@ -60,3 +60,8 @@ ul.hlist li{
     background-color:#fff;
     border:2px solid #ccc;
 }
+button.link 
+{
+    background-color : transparent;
+    border:0;
+}

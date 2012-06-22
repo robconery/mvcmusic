@@ -53,10 +53,10 @@
                     @foreach (var item in @Model.OrderDetails)
                     {
                         <tr>
-                            <td>Real-World ASP.NET MVC3</td>
-                            <td>1</td>
-                            <td>$32.00</td>
-                            <td>$32.00</td>
+                            <td>@item.Name</td>
+                            <td>@item.Quantity</td>
+                            <td>@item.UnitPrice.ToString("C")</td>
+                            <td>@item.LineTotal.ToString("C")</td>
                         </tr>            
                     }
 

@@ -1,13 +1,12 @@
-﻿
-
-@helper ValidationMessage(string name){
+﻿@helper ValidationMessage(string name){
     <span class="field-validation-valid" data-valmsg-for="@name" data-valmsg-replace="true"></span>
 }
-@helper TextBox(string name, object value = null) {
+@helper TextBox(string name, object value = null, int? size =null) {
     var val = value ?? "";
+    var _size = size ?? 20;
     <p>
         <label>@name</label>
-        <input type="text" name="@name" id="@name" value="@val" />
+        <input type="text" name="@name" id="@name" value="@val" size = '@_size'/>
     </p>
 }
 @helper TextBoxDate(string name, object value = null) {
@@ -17,11 +16,12 @@
         <input type="text" name="@name" id="@name" value="@val" class="datepicker"/>
     </p>
 }
-@helper TextBoxRequired(string name, object value = null, string requiredMessage = "Required") {
+@helper TextBoxRequired(string name, object value = null, int? size=null, string requiredMessage = "Required") {
     var val = value ?? "";
+    var _size = size ?? 20;
     <p>
         <label>@name *</label>
-        <input type="text" name="@name" id="@name" value="@val" data-val="true" data-val-required="@requiredMessage" />
+        <input type="text" name="@name" id="@name" value="@val" data-val="true" data-val-required="@requiredMessage" size = '@_size'/>
         @ValidationMessage(name)
     </p>
     
@@ -65,6 +65,13 @@
             }
         </button>
     </form>
+}
+
+@helper SubmitLink(string text, string icon = "") {
+    <button type="submit" class="link">
+        <i class="icon @icon"></i>
+        @text
+    </button>
 }
 
 @helper DeleteConfirmScript(){   

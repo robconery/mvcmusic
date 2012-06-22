@@ -182,6 +182,9 @@
     <Content Include="App_Code\Forms.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Code\OrderHelper.cshtml" />
+    <Content Include="App_Code\Notifier.cshtml" />
+    <Content Include="assets\js\notifier.js" />
     <None Include="CodeTemplates\AddController\Controller.tt" />
     <None Include="CodeTemplates\AddView\CSHTML\Create.tt" />
     <None Include="CodeTemplates\AddView\CSHTML\Details.tt" />

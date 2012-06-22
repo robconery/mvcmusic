@@ -10,6 +10,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
     <script src="/assets/js/bootstrap.min.js"></script>
     <script src="/assets/js/bootstrap-collapse.js"></script>
+    <script src="/assets/js/notifier.js"></script>
     <!-- Le styles -->
     <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
@@ -56,6 +57,8 @@
     </div>
  
     <article role="main">
+    
+        @Notifier.Script(TempData)
         @RenderBody()
     </article>
  
@@ -65,7 +68,6 @@
         </div>
     </footer>
 
- 
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
@@ -73,9 +75,11 @@
     <script>
         $().ready(function () {
             $('.dropdown-toggle').dropdown();
-            $(".collapse").collapse()
+            $(".collapse").collapse();
+            $(".alert").alert();
         });
         
     </script>
+    
   </body>
 </html>

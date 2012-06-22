@@ -10,7 +10,7 @@
         <div class='row nudge-top'>
             <div class='span12 centered underlined'>
                 <h1>
-                    Order <a href="/orders/details/@Model.OrderId">@Model.OrderId</a>
+                    Order <a href="/orders/details/@Model.OrderId">@Model.OrderId</a> : @Model.Status
                 </h1>
             </div>
         </div>
@@ -21,6 +21,7 @@
                         Add Note
                     </a>
                 </li>
+                @OrderHelper.LinksForStatus(Model)
                 <li><i class='icon icon-envelope'></i>
                     <a href = "mailto:@Model.Email">Email Customer</a>
                 </li>
@@ -81,7 +82,6 @@
                             @Forms.TextBoxRequired("State",@Model.State)
                             @Forms.TextBox("PostalCode",@Model.PostalCode)
                             @Forms.TextBox("Country",@Model.Country)
-                            @Forms.TextBox("Phone",@Model.Phone)
                         
                             @Forms.TextBoxNumber("Total", @Model.Total)
                             @Forms.TextBoxDate("OrderDate", @Model.OrderDate)
@@ -109,6 +109,7 @@
                                     <th>
                                         Date
                                     </th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -126,6 +127,13 @@
                                     </td>
                                     <td>
                                         @tx.CreatedOn.ToShortDateString()
+                                    </td>
+                                     <td>
+                                        <a href="@Url.Action("edit","transactions",new {id = tx.Id})" class="btn btn-info">
+                                            <i class="icon icon-edit icon-white"></i>
+                                            Edit
+                                        </a>
+                                        @Forms.DeleteButton(Url.Action("delete","transactions"),tx.Id)
                                     </td>
                                 </tr>
                                 }
@@ -156,6 +164,7 @@
                                     <th>
                                         Line Total
                                     </th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -176,6 +185,13 @@
                                     </td>
                                     <td>
                                         @item.LineTotal.ToString("C")
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("edit","orderdetails",new {id = item.OrderDetailId})" class="btn btn-info">
+                                            <i class="icon icon-edit icon-white"></i>
+                                            Edit
+                                        </a>
+                                         @Forms.DeleteButton(Url.Action("delete", "orderdetails"), item.OrderDetailId)
                                     </td>
                                 </tr>                          
                                 }
