@@ -33,15 +33,16 @@
         <div class='row nudge-top'>
             <div class='span4'>
                 <div class='well'>
-                    <h4>Customer</h4>
+
+                    <h4 data-bind="text:FullName"></h4>
+
                     <table class='left-right'>
                         <tr>
                             <td class='attribute'>
                                 @Html.Raw(Html.Gravatar(Model.Email,50))
                             </td>
                             <td class='value'>
-                                <h5>
-                                    @Model.Email</h5>
+                                <h5 data-bind="text:Email"></h5>
                             </td>
                         </tr>
                     </table>
@@ -74,17 +75,24 @@
                 <div class='row span7'>
                     <div class='well'>
                         <form accept-charset="UTF-8" action="/orders/13487" method="post" novalidate="novalidate">
-                            @Forms.TextBoxRequired("FirstName",@Model.FirstName)
-                            @Forms.TextBoxRequired("LastName", @Model.LastName)
-                            @Forms.TextBox("Email",@Model.Email)
-                            @Forms.TextBoxRequired("Address",@Model.Address)
-                            @Forms.TextBoxRequired("City",@Model.City)
-                            @Forms.TextBoxRequired("State",@Model.State)
-                            @Forms.TextBox("PostalCode",@Model.PostalCode)
-                            @Forms.TextBox("Country",@Model.Country)
+
+                            <label for="FirstName">Email</label>
+                            <input name="FirstName" data-bind="value : FirstName" />  
+                                                      
+                            <label for="LastName">Email</label>
+                            <input name="LastName" data-bind="value : LastName" />
+
+                            <label for="Email">Email</label>
+                            <input name="Email" data-bind="value : Email" />
+
+                            @Forms.TextBoxRequired("Address",Model.Address)
+                            @Forms.TextBoxRequired("City",Model.City)
+                            @Forms.TextBoxRequired("State",Model.State)
+                            @Forms.TextBox("PostalCode",Model.PostalCode)
+                            @Forms.TextBox("Country",Model.Country)
                         
-                            @Forms.TextBoxNumber("Total", @Model.Total)
-                            @Forms.TextBoxDate("OrderDate", @Model.OrderDate)
+                            @Forms.TextBoxNumber("Total", Model.Total)
+                            @Forms.TextBoxDate("OrderDate",Model.OrderDate)
                             <hr />
                             <input type="submit" class="btn btn-primary btn-ok" value = "save"/>
                         </form>
@@ -207,3 +215,17 @@
     </div>
 </div>
 @Forms.DeleteConfirmScript()
+<script type="text/javascript">
+
+    var orderViewModel = function () {
+
+        this.Email = ko.observable("@Model.Email");
+        this.FirstName = ko.observable("@Model.FirstName");
+        this.LastName = ko.observable("@Model.LastName");
+        this.FullName = ko.computed(function () {
+            return this.FirstName() + " " + this.LastName();
+        }, this);
+    }
+    ko.applyBindings(new orderViewModel());
+
+</script>

@@ -26,7 +26,7 @@ namespace MvcMusicStore.Controllers
             var order = db.Orders.Find(id);
             order.Status = "refunded";
             order.Notes = new List<OrderNote>();
-            order.Notes.Add(new OrderNote { Note = "Order Refunded: Authorization XYZ", CreatedOn = DateTime.Now });
+            order.Notes.Add(new OrderNote { Note = "Order Refunded: Authorization XYZ by " + User.Identity.Name, CreatedOn = DateTime.Now });
             TempData["message"] = "Order Refunded";
             return RedirectToAction("edit", new {id = id});
         }
@@ -35,8 +35,17 @@ namespace MvcMusicStore.Controllers
             var order = db.Orders.Find(id);
             order.Status = "voided";
             order.Notes = new List<OrderNote>();
-            order.Notes.Add(new OrderNote { Note = "Order Voided", CreatedOn = DateTime.Now });
+            order.Notes.Add(new OrderNote { Note = "Order Voidedby " + User.Identity.Name, CreatedOn = DateTime.Now });
             TempData["message"] = "Order Voided by " + User.Identity.Name;
+            return RedirectToAction("edit", new { id = id });
+        }
+        public ActionResult Ship(int id)
+        {
+            var order = db.Orders.Find(id);
+            order.Status = "shipped";
+            order.Notes = new List<OrderNote>();
+            order.Notes.Add(new OrderNote { Note = "Order Shipped by " + User.Identity.Name, CreatedOn = DateTime.Now });
+            TempData["message"] = "Order Shipped by " + User.Identity.Name;
             return RedirectToAction("edit", new { id = id });
         }
         //
