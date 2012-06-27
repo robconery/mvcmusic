@@ -1,0 +1,5 @@
+﻿@helper AlbumArt(MvcMusicStore.Models.Album album, string size = "260"){
+    var albumImage = album.AlbumId + ".jpg";
+    
+    <img src="/assets/images/album_art/@albumImage" alt="@album.Title" width="@size"/>
+}

@@ -15,7 +15,7 @@
             <tr>
                 <td width="120">
                    <a href="@Url.Action("details","albums", new { id = album.AlbumId })">
-                     <img alt="@album.Title" src="/assets/images/@album.AlbumArtUrl" />
+                     @AssetHelper.AlbumArt(album,"120")
                     </a>
                 </td>
                 <td>
