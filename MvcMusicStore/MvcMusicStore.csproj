@@ -382,6 +382,9 @@
     <Content Include="assets\images\album_art\97.jpg" />
     <Content Include="assets\images\album_art\98.jpg" />
     <Content Include="assets\images\album_art\99.jpg" />
+    <Content Include="assets\images\home-showcase.gif" />
+    <Content Include="assets\images\home-showcase.jpg" />
+    <Content Include="assets\images\paid.png" />
     <Content Include="assets\js\bootstrap-collapse.js" />
     <Content Include="assets\js\bootstrap.min.js" />
     <Content Include="assets\images\home-showcase.png" />
