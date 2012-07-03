@@ -1,4 +1,4 @@
 ﻿@helper AlbumArt(MvcMusicStore.Models.Album album, string size = "260"){
-   
-    <img src="http://d3p1i40hc8v8mh.cloudfront.net/@album.AlbumArtUrl" alt="@album.Title" width="@size"/>
+    //your CDN url goes here
+    <img src="/assets/images/album_art/@album.AlbumArtUrl" alt="@album.Title" width="@size"/>
 }
