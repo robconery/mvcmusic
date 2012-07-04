@@ -29,7 +29,6 @@ C:\projects\mvcmusic\MvcMusicStore\obj\Debug\MvcMusicStore.csprojResolveAssembly
 C:\projects\mvcmusic\MvcMusicStore\bin\AjaxMin.dll
 C:\projects\mvcmusic\MvcMusicStore\bin\Cassette.dll
 C:\projects\mvcmusic\MvcMusicStore\bin\Cassette.Views.dll
-C:\projects\mvcmusic\MvcMusicStore\bin\Cassette.Web.dll
 C:\projects\mvcmusic\MvcMusicStore\bin\IronRuby.dll
 C:\projects\mvcmusic\MvcMusicStore\bin\IronRuby.Libraries.dll
 C:\projects\mvcmusic\MvcMusicStore\bin\IronRuby.Libraries.Yaml.dll
@@ -38,12 +37,10 @@ C:\projects\mvcmusic\MvcMusicStore\bin\Microsoft.Dynamic.dll
 C:\projects\mvcmusic\MvcMusicStore\bin\Microsoft.Practices.ServiceLocation.dll
 C:\projects\mvcmusic\MvcMusicStore\bin\Microsoft.Scripting.dll
 C:\projects\mvcmusic\MvcMusicStore\bin\Microsoft.Scripting.Metadata.dll
-C:\projects\mvcmusic\MvcMusicStore\bin\Microsoft.Web.Infrastructure.dll
 C:\projects\mvcmusic\MvcMusicStore\bin\Newtonsoft.Json.dll
 C:\projects\mvcmusic\MvcMusicStore\bin\Pandora.dll
 C:\projects\mvcmusic\MvcMusicStore\bin\SassAndCoffee.Core.dll
 C:\projects\mvcmusic\MvcMusicStore\bin\SassAndCoffee.Ruby.dll
-C:\projects\mvcmusic\MvcMusicStore\bin\WebActivator.dll
 C:\projects\mvcmusic\MvcMusicStore\bin\AjaxMin.pdb
 C:\projects\mvcmusic\MvcMusicStore\bin\Microsoft.Practices.ServiceLocation.pdb
 C:\projects\mvcmusic\MvcMusicStore\bin\Microsoft.Practices.ServiceLocation.xml

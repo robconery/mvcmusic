@@ -45,27 +45,22 @@ namespace MvcMusicStore.Controllers
             {
                 return Json(new { success = false, message = "Can't refund this order, there was an error", order = order });
             }
-            
-            //TempData["message"] = "Order Refunded";
-            //return RedirectToAction("edit", new {id = id});
         }
-        public ActionResult Void(int id)
-        {
-            var order = db.Orders.Find(id);
-            order.Status = "voided";
-            order.Notes = new List<OrderNote>();
-            order.Notes.Add(new OrderNote { Note = "Order Voidedby " + User.Identity.Name, CreatedOn = DateTime.Now });
-            TempData["message"] = "Order Voided by " + User.Identity.Name;
-            return RedirectToAction("edit", new { id = id });
-        }
+
         public ActionResult Ship(int id)
         {
             var order = db.Orders.Find(id);
             order.Status = "shipped";
-            order.Notes = new List<OrderNote>();
             order.Notes.Add(new OrderNote { Note = "Order Shipped by " + User.Identity.Name, CreatedOn = DateTime.Now });
-            TempData["message"] = "Order Shipped by " + User.Identity.Name;
-            return RedirectToAction("edit", new { id = id });
+            //have to flush the changes here
+            db.SaveChanges();
+            order = db.Orders
+                .Include("Transactions")
+                .Include("OrderDetails")
+                .Include("Notes")
+                .Where(x => x.OrderId == id).FirstOrDefault();
+            return Json(new { success = true, message = "Order Shipped! Wahoo!", order = order });
+
         }
         //
         // GET: /Default1/Details/5
@@ -168,7 +163,7 @@ namespace MvcMusicStore.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(order).State = EntityState.Modified;
-                return Json(new { success = true, message = "Order Saved!" });
+                return Json(new { success = true, message = "Order Saved!", order = order });
             }
             else
             {

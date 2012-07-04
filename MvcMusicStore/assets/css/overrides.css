@@ -66,3 +66,7 @@ button.link
     border:0;
 }
 
+.inlineForm 
+{
+    display : inline
+}

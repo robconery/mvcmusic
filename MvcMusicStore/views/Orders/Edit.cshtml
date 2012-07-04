@@ -16,17 +16,21 @@
         </div>
         <div class='centered row' id='submenu'>
             <ul class='hlist'>
-                <li><i class='icon icon-edit'></i>
-                    <a href="@Url.Action("create","ordernotes",new {id = Model.OrderId})">
-                        Add Note
-                    </a>
+                <!-- ko if : refundable -->
+                <li>
+                    <i class='icon icon-repeat'></i>
+                    <a href = "#" class = "refundButton">Refund</a>
                 </li>
-                @OrderHelper.LinksForStatus(Model)
-                <li><i class='icon icon-envelope'></i>
+                <!--/ko-->
+                <!-- ko if : shippable -->
+                <li>
+                    <i class='icon icon-plane'></i>
+                    <a href = #" id = "shipButton">Ship It!</a>
+                </li>
+                <!--/ko-->
+                <li>
+                    <i class='icon icon-envelope'></i>
                     <a href = "mailto:@Model.Email">Email Customer</a>
-                </li>
-                <li class='last'>
-                    @Forms.DeleteButton(Url.Action("delete","orders",new {id = Model.OrderId}),Model.OrderId)
                 </li>
             </ul>
         </div>
@@ -47,21 +51,21 @@
                         </tr>
                     </table>
                 </div>
-                 <div class='well nudge-top'>
+                 <div id = "notesList" class='well nudge-top'>
                     <h4> Notes</h4>
                     <table>
                         <tbody>
                         <!-- ko foreach: Notes -->
                         <tr>
                             <td width ='95'>
-                                <span class="label" data-bind = "text : $parent.parseDate(CreatedOn)"></span>
+                                <span class="label" data-bind = "dateText : CreatedOn"></span>
                             </td>
                             <td >
                                 <span data-bind = "text : Note"></span>
                             </td>
                             </td>
                             <td>
-                                <button class = "btn btn-danger" data-bind = "click : $parent.deleteNote">
+                                <button class = "btn btn-danger removeNote">
                                     <i class="icon icon-remove icon-white"></i>
                                 </button>
                             </td>
@@ -74,7 +78,7 @@
                                     <input id = "newNote" />
                                 </td>
                                 <td>
-                                    <button class="btn btn-info" data-bind = "click : addNote">
+                                    <button id = "addNote" class="btn btn-info">
                                         <i class="icon icon-white icon-plus-sign"></i>
                                     </button>
                                 </td>
@@ -86,7 +90,8 @@
             <div class='span7'>
                 <div class='row span7'>
                     <div class='well'>
-                        <form id="orderForm" data-bind="submit:saveOrder" method="post">
+                        <form id="orderForm" method="post">
+                            <input type="hidden" name = "id" value = "@Model.OrderId" />
                             <label for="FirstName">Email</label>
                             <input name="FirstName" data-bind="value : FirstName" />  
                                                       
@@ -128,7 +133,9 @@
                                     <th>
                                         Date
                                     </th>
+                                    <!-- ko if : refundable -->
                                     <th></th>
+                                    <!-- /ko -->
                                 </tr>
                             </thead>
                             <tbody>
@@ -137,13 +144,15 @@
                                     <td data-bind = "text : Processor"></td>
                                     <td data-bind = "text : Amount"></td>
                                     <td data-bind = "text : Authorization"></td>
-                                    <td data-bind = "text : $parent.parseDate(CreatedOn)"></td>
+                                    <td data-bind = "dateText : CreatedOn"></td>
+                                    <!-- ko if : $parent.refundable -->
                                     <td>
-                                        <button class="btn btn-info" data-bind = "visible : $parent.canRefund(), click : $parent.refundOrder">
+                                        <button class="btn btn-info"  class = "refundButton">
                                             <i class="icon icon-white icon-repeat"></i>
                                             Refund
                                         </button>
                                     </td>
+                                    <!-- /ko -->
                                 </tr>
                                 <!-- /ko -->
 
@@ -173,7 +182,6 @@
                                     <th>
                                         Line Total
                                     </th>
-                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -195,13 +203,7 @@
                                     <td>
                                         @item.LineTotal.ToString("C")
                                     </td>
-                                    <td>
-                                        <a href="@Url.Action("edit","orderdetails",new {id = item.OrderDetailId})" class="btn btn-info">
-                                            <i class="icon icon-edit icon-white"></i>
-                                            Edit
-                                        </a>
-                                         @Forms.DeleteButton(Url.Action("delete", "orderdetails"), item.OrderDetailId)
-                                    </td>
+
                                 </tr>                          
                                 }
                                 
