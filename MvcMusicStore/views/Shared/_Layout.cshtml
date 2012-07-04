@@ -7,15 +7,18 @@
     <meta name="description" content="">
     <meta name="author" content="Microsoft with the help of Tekpub">
     
-    @{
-        Bundles.Reference("jquery");
-        Bundles.Reference("assets/js");
-        Bundles.Reference("assets/css");
-    }
-    @Bundles.RenderScripts()
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/knockout/knockout-2.1.0.js"></script>
     
+    <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/bootstrap-collapse.js"></script>
+    <script src="/assets/js/notifier.js"></script>
+
     <!-- Le styles -->
-    @Bundles.RenderStylesheets()
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="/assets/css/overrides.css" rel="stylesheet">
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>

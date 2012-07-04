@@ -1,6 +1,6 @@
 ﻿@helper LinksForStatus(MvcMusicStore.Models.Order order){
         if(order.Status == "paid"){
-             <form id="statusForm" action="/orders/refund" method="post" style="display:inline">
+             <form id="statusForm" action="/orders/refund" method="post" style="display:inline" data-bind = "visible : canRefund(), click : refundOrder">
                 <input type="hidden" name="id" value="@order.OrderId" />
                 <li>@Forms.SubmitLink("Refund", "icon-repeat")</li>
              </form>

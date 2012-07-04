@@ -36,11 +36,12 @@ namespace MvcMusicStore.Controllers
             if (ModelState.IsValid)
             {
                 db.OrderNotes.Add(item);
-                return RedirectToAction("edit", "orders", new { id = item.OrderId });
+                item.CreatedOn = DateTime.Now;
+                return Json(new { success = true, message = "Note created", newNote = item});
             }
             else
             {
-                return View();
+                return Json(new { success = false, message = "Note invalid" });
             }       
         }
         
@@ -65,8 +66,15 @@ namespace MvcMusicStore.Controllers
         public ActionResult Delete(int id)
         {
             var item = db.OrderNotes.Find(id);
-            db.OrderNotes.Remove(item);
-            return RedirectToAction("edit", "orders", new { id = item.OrderId });
+            try
+            {
+                db.OrderNotes.Remove(item);
+                return Json(new { success = true, message = "Note deleted" });
+            }
+            catch (Exception x)
+            {
+                return Json(new { success = false, message = "Can't delete order... there was an error" });
+            }
         }
     }
 }

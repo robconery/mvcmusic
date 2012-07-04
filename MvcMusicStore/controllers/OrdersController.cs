@@ -25,11 +25,29 @@ namespace MvcMusicStore.Controllers
 
         public ActionResult Refund(int id){
             var order = db.Orders.Find(id);
-            order.Status = "refunded";
-            order.Notes = new List<OrderNote>();
-            order.Notes.Add(new OrderNote { Note = "Order Refunded: Authorization XYZ by " + User.Identity.Name, CreatedOn = DateTime.Now });
-            TempData["message"] = "Order Refunded";
-            return RedirectToAction("edit", new {id = id});
+
+            try
+            {
+                order.Status = "refunded";
+                order.Notes.Add(new OrderNote { Note = "Order Refunded: Authorization XYZ by " + User.Identity.Name, CreatedOn = DateTime.Now });
+                order.Transactions.Add(new Transaction { Amount = -order.Total, Authorization = "XYZ by " + User.Identity.Name, CreatedOn = DateTime.Now, Discount = 0, Processor = "coupon" });
+                //push the changes, we need the changed object
+                db.SaveChanges();
+                //reload it
+                order = db.Orders
+                    .Include("Transactions")
+                    .Include("OrderDetails")
+                    .Include("Notes")
+                    .Where(x => x.OrderId == id).FirstOrDefault(); 
+                return Json(new { success = true, message = "Order Refunded", order = order });
+            }
+            catch
+            {
+                return Json(new { success = false, message = "Can't refund this order, there was an error", order = order });
+            }
+            
+            //TempData["message"] = "Order Refunded";
+            //return RedirectToAction("edit", new {id = id});
         }
         public ActionResult Void(int id)
         {

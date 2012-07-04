@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Edit";
 }
+
 <script src="/assets/js/order_manager.js" type="text/javascript"></script>
 <div id='normal'>
     <div class='container'>
@@ -56,17 +57,29 @@
                                 <span class="label" data-bind = "text : $parent.parseDate(CreatedOn)"></span>
                             </td>
                             <td >
-                                <a data-bind = "attr : {href : $parent.editNoteUrl(Id)}, text : Note"></a>
+                                <span data-bind = "text : Note"></span>
+                            </td>
                             </td>
                             <td>
                                 <button class = "btn btn-danger" data-bind = "click : $parent.deleteNote">
                                     <i class="icon icon-remove icon-white"></i>
                                 </button>
-
                             </td>
                         </tr>                                    
                         <!-- /ko -->
                         </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan=2>
+                                    <input id = "newNote" />
+                                </td>
+                                <td>
+                                    <button class="btn btn-info" data-bind = "click : addNote">
+                                        <i class="icon icon-white icon-plus-sign"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
             </div>
@@ -119,30 +132,20 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var tx in @Model.Transactions.ToList())
-                                {
+                                 <!-- ko foreach:Transactions -->
                                  <tr>
+                                    <td data-bind = "text : Processor"></td>
+                                    <td data-bind = "text : Amount"></td>
+                                    <td data-bind = "text : Authorization"></td>
+                                    <td data-bind = "text : $parent.parseDate(CreatedOn)"></td>
                                     <td>
-                                        @tx.Processor
-                                    </td>
-                                    <td>
-                                        @tx.Amount.ToString("C")
-                                    </td>
-                                    <td>
-                                        @tx.Authorization
-                                    </td>
-                                    <td>
-                                        @tx.CreatedOn.ToShortDateString()
-                                    </td>
-                                     <td>
-                                        <a href="@Url.Action("edit","transactions",new {id = tx.Id})" class="btn btn-info">
-                                            <i class="icon icon-edit icon-white"></i>
-                                            Edit
-                                        </a>
-                                        @Forms.DeleteButton(Url.Action("delete","transactions"),tx.Id)
+                                        <button class="btn btn-info" data-bind = "visible : $parent.canRefund(), click : $parent.refundOrder">
+                                            <i class="icon icon-white icon-repeat"></i>
+                                            Refund
+                                        </button>
                                     </td>
                                 </tr>
-                                }
+                                <!-- /ko -->
 
                             </tbody>
                         </table>
@@ -215,10 +218,5 @@
 
 @Forms.DeleteConfirmScript()
 <script type="text/javascript">
-    
-    $().ready(function(){
-        var order = @Html.Raw(ViewBag.OrderJson);
-        ko.applyBindings(new orderViewModel(order));
-    });
-
+    order = @Html.Raw(ViewBag.OrderJson);
 </script>
