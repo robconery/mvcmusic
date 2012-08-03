@@ -1,0 +1,38 @@
+﻿@model MvcMusicStore.Models.Transaction
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/views/Shared/_Layout.cshtml";
+}
+<div class = "container">
+    <div class = "row span12">
+		<h2>Details</h2>
+
+				<fieldset>
+			<legend>Transaction</legend>
+		
+			<div class="display-label">OrderId</div>
+			<div class="display-field">@Model.OrderId</div>
+		
+			<div class="display-label">Amount</div>
+			<div class="display-field">@String.Format("{0:F}", Model.Amount)</div>
+		
+			<div class="display-label">Discount</div>
+			<div class="display-field">@String.Format("{0:F}", Model.Discount)</div>
+		
+			<div class="display-label">Processor</div>
+			<div class="display-field">@Model.Processor</div>
+		
+			<div class="display-label">Authorization</div>
+			<div class="display-field">@Model.Authorization</div>
+		
+			<div class="display-label">CreatedOn</div>
+			<div class="display-field">@String.Format("{0:g}", Model.CreatedOn)</div>
+				</fieldset>
+		<p>
+					@Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+			@Html.ActionLink("Back to List", "Index")
+				</p>
+	</div>
+</div>
+

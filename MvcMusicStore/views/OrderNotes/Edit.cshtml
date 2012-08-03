@@ -1,0 +1,39 @@
+﻿@model MvcMusicStore.Models.OrderNote
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/views/Shared/_Layout.cshtml";
+}
+<div class = "container">
+    <div class = "row span12">
+		<h2>Edit</h2>
+
+								<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+		<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+				@using (Html.BeginForm()) {
+			@Html.ValidationSummary(true)
+			<fieldset>
+				<legend>OrderNote</legend>
+
+						@Html.HiddenFor(model => model.Id)
+
+						 @Forms.TextBox("OrderId",@Model.OrderId)
+
+						 @Forms.TextBox("Note",@Model.Note)
+
+						 @Forms.TextBox("CreatedOn",@Model.CreatedOn)
+
+						<p>
+					<input class="btn btn-primary" type="submit" value="Save" />
+				</p>
+			</fieldset>
+		}
+
+		<div>
+			@Html.ActionLink("Back to Order", "Edit", "Orders", new { id = @Model.OrderId },null)
+		</div>
+
+	</div>
+</div>
+

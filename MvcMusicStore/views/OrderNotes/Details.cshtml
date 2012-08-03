@@ -1,0 +1,29 @@
+﻿@model MvcMusicStore.Models.OrderNote
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/views/Shared/_Layout.cshtml";
+}
+<div class = "container">
+    <div class = "row span12">
+		<h2>Details</h2>
+
+				<fieldset>
+			<legend>OrderNote</legend>
+		
+			<div class="display-label">OrderId</div>
+			<div class="display-field">@Model.OrderId</div>
+		
+			<div class="display-label">Note</div>
+			<div class="display-field">@Model.Note</div>
+		
+			<div class="display-label">CreatedOn</div>
+			<div class="display-field">@String.Format("{0:g}", Model.CreatedOn)</div>
+				</fieldset>
+		<p>
+					@Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+			@Html.ActionLink("Back to List", "Index")
+				</p>
+	</div>
+</div>
+

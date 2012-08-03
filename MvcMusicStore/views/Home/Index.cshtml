@@ -1,0 +1,39 @@
+﻿@model List<MvcMusicStore.Models.Album>
+@{
+    ViewBag.Title = "ASP.NET MVC Music Store";
+}
+
+<div class="container">
+    <div  id="splash" class="row span12">
+        <div class="row span12">
+             <img src="/assets/images/home-showcase.png" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="span12">
+            <ul class="thumbnails">
+                @foreach (var album in Model)
+                {
+                <li class="span3">
+                    <div class = "thumbnail">
+                        <a href="@Url.Action("details", "albums",new { id = album.AlbumId })">
+                            @Assets.AlbumArt(album)
+                        </a>
+                        <h5>@album.Title</h5>
+                        <p>@album.Price</p>     
+                        <p class="button">
+                            <a class="btn btn-primary" href = "@Url.Action("AddToCart", "ShoppingCart", new { id = album.AlbumId })">
+                                <i class="icon icon-shopping-cart icon-white"></i>
+                                Add To Cart
+                            </a>
+                        </p>        
+                    </div>
+
+                </li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+
+

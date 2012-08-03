@@ -1,0 +1,263 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{32DCD27D-A84C-4250-B657-408B3620A9AC}</ProjectGuid>
+    <ProjectTypeGuids>{E53F8FEA-EAE0-44A6-8774-FFD645390401};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MvcMusicStore</RootNamespace>
+    <AssemblyName>MvcMusicStore</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>false</UseIISExpress>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.4.1.10331.0\lib\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Helpers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="controllers\AccountController.cs" />
+    <Compile Include="controllers\AlbumsController.cs" />
+    <Compile Include="controllers\DbController.cs" />
+    <Compile Include="controllers\GenresController.cs" />
+    <Compile Include="controllers\HomeController.cs" />
+    <Compile Include="controllers\OrderDetailsController.cs" />
+    <Compile Include="controllers\OrderNotesController.cs" />
+    <Compile Include="controllers\OrdersController.cs" />
+    <Compile Include="controllers\ShoppingCartController.cs" />
+    <Compile Include="controllers\TransactionsController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="helpers\Gravatar.cs" />
+    <Compile Include="models\AccountModels.cs" />
+    <Compile Include="models\Album.cs" />
+    <Compile Include="models\Artist.cs" />
+    <Compile Include="models\Cart.cs" />
+    <Compile Include="models\Genre.cs" />
+    <Compile Include="models\MusicStoreEntities.cs" />
+    <Compile Include="models\Order.cs" />
+    <Compile Include="models\OrderDetail.cs" />
+    <Compile Include="models\OrderNote.cs" />
+    <Compile Include="models\SampleData.cs" />
+    <Compile Include="models\ShoppingCart.cs" />
+    <Compile Include="models\Transaction.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="models\ShoppingCartRemoveViewModel.cs" />
+    <Compile Include="models\ShoppingCartViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="assets\css\bootstrap-responsive.min.css" />
+    <Content Include="assets\css\bootstrap.min.css" />
+    <Content Include="assets\css\overrides.css" />
+    <Content Include="assets\js\application.js" />
+    <Content Include="assets\js\bootstrap-collapse.js" />
+    <Content Include="assets\js\bootstrap.min.js" />
+    <Content Include="assets\images\home-showcase.png" />
+    <Content Include="assets\images\logo.png" />
+    <Content Include="assets\images\placeholder.gif" />
+    <Content Include="assets\js\knockout.mapping.js" />
+    <Content Include="assets\js\knockout_custom_bindings.js" />
+    <Content Include="assets\js\utility.js" />
+    <Content Include="assets\js\order.js" />
+    <Content Include="assets\js\order_editor.js" />
+    <Content Include="Global.asax" />
+    <Content Include="assets\images\glyphicons-halflings-white.png" />
+    <Content Include="assets\images\glyphicons-halflings.png" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="views\_ViewStart.cshtml" />
+    <Content Include="views\Shared\Error.cshtml" />
+    <Content Include="views\Shared\_Layout.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="views\Genres\Details.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="views\Home\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="views\Genres\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="views\Albums\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="views\Albums\Details.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="views\Albums\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="views\Albums\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="views\Albums\Delete.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="views\Account\ChangePassword.cshtml" />
+    <Content Include="views\Account\ChangePasswordSuccess.cshtml" />
+    <Content Include="views\Account\LogOn.cshtml" />
+    <Content Include="views\Account\Register.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="views\ShoppingCart\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="views\ShoppingCart\CartSummary.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="views\Genres\GenreMenu.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="views\Orders\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="views\Orders\Details.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="views\Orders\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="views\Orders\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="views\Orders\Delete.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Code\Forms.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Code\OrderHelper.cshtml" />
+    <Content Include="App_Code\Notifier.cshtml" />
+    <Content Include="assets\js\notifier.js" />
+    <Content Include="App_Code\Assets.cshtml" />
+    <None Include="CodeTemplates\AddController\Controller.tt" />
+    <None Include="CodeTemplates\AddView\CSHTML\Create.tt" />
+    <None Include="CodeTemplates\AddView\CSHTML\Details.tt" />
+    <None Include="CodeTemplates\AddView\CSHTML\Edit.tt" />
+    <None Include="CodeTemplates\AddView\CSHTML\List.tt" />
+    <Content Include="views\Transactions\Index.cshtml" />
+    <Content Include="views\Transactions\Details.cshtml" />
+    <Content Include="views\Transactions\Create.cshtml" />
+    <Content Include="views\Transactions\Edit.cshtml" />
+    <Content Include="views\OrderNotes\Index.cshtml" />
+    <Content Include="views\OrderNotes\Details.cshtml" />
+    <Content Include="views\OrderNotes\Create.cshtml" />
+    <Content Include="views\OrderNotes\Edit.cshtml" />
+    <Content Include="views\OrderDetails\Index.cshtml" />
+    <Content Include="views\OrderDetails\Details.cshtml" />
+    <Content Include="views\OrderDetails\Edit.cshtml" />
+    <Content Include="views\Genres\Create.cshtml" />
+    <Content Include="views\Genres\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>False</AutoAssignPort>
+          <DevelopmentServerPort>26641</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

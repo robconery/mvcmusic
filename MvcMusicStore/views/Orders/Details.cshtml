@@ -1,0 +1,84 @@
+﻿@model MvcMusicStore.Models.Order
+@{
+    ViewBag.Title = "Checkout Complete";
+}
+<div id='normal'>
+    <article role='main'>
+        <div class='container'>
+
+            <div class='row'>
+                <div class='span9'>
+                    <div class='span6'>
+                        <h1>Invoice @Model.OrderId</h1>
+                        <p><img alt="Logo" src="/assets/images/logo.png" /></p>
+
+                    </div>
+                    <div class='span2'>
+                        <p class='centered'><img alt="Paid" src="/assets/images/paid.png" /></p>
+                    </div>
+                 </div>
+            </div>
+            <div class='row'>
+                <div class='span9'>
+                    <hr/>
+                    <div class='span6'>
+                        <h4>Bill To</h4>
+                        <address>
+                            <strong>@Model.FirstName @Model.LastName </strong>
+                            <br>
+                            @Model.Address
+                            <br>
+                            @Model.City, @Model.State @Model.PostalCode
+                            <br>
+                            @Model.Country
+                        </address>
+                    </div>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='span9'>
+                    <hr>
+                    <div class='span8'>
+                <h4>Items</h4>
+                <table class='table table-bordered table-striped'>
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var item in @Model.OrderDetails)
+                    {
+                        <tr>
+                            <td>@item.Name</td>
+                            <td>@item.Quantity</td>
+                            <td>@item.UnitPrice.ToString("C")</td>
+                            <td>@item.LineTotal.ToString("C")</td>
+                        </tr>            
+                    }
+
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan='3'></td>
+                            <td>
+                                <strong>@Model.Total.ToString("C")</strong>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+                </div>
+            </div>
+            <div class="row nudge-top">
+                <div class="span12">
+                    <h2>Thanks For Your Order</h2>
+                    <p>We hope you enjoy listening to your new album!</p>
+                </div>
+            </div>
+        </div>
+    </article>
+</div>

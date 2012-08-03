@@ -1,0 +1,71 @@
+﻿body
+{
+	background-color: #FBF9EF;
+    padding-top: 60px;
+    padding-bottom: 40px;
+}
+h1, h2, h3, h4, h5 {
+    font-family: helvetica;
+    font-style: normal;
+    font-weight: 600;
+    color:  #CCC;
+    text-shadow: white 2px 2px 1px;
+    padding-bottom: 12px;
+}
+#splash
+{
+    margin-top:36px;
+    padding:18px;
+}
+table.left-right{
+  padding:8px;
+}
+td.attribute {
+  font-weight:bold;
+  color:@grayLighter;
+  padding-right:8px;
+  border-right:1px solid #e5e5e5;
+}
+td.value {
+  padding:8px;
+}
+.well label span{
+  font-size:80%;
+  font-weight:normal;
+}
+.well label input{
+  display:inline;
+}
+ul.hlist{
+  list-style : none;
+}
+ul.hlist li{
+  display : inline;
+  padding : 20px;
+}
+.centered 
+{
+    text-align:center;
+}
+.underlined 
+{
+    border-bottom : 1px solid #ee5e5e5;
+}
+.nudge-top
+{
+    margin-top:36px;
+}
+.well
+{
+    background-color:#fff;
+    border:2px solid #ccc;
+}
+button.link 
+{
+    background-color : transparent;
+    border:0;
+}
+
+.editor {
+    display:none;
+}
