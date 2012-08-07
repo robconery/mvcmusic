@@ -59,6 +59,9 @@ namespace MvcMusicStore.Controllers
             // Remove from cart
             int itemCount = cart.RemoveFromCart(id);
 
+            // Flush the cart since we need the new count of items
+            db.SaveChanges();
+
             // Display the confirmation message
             var results = new ShoppingCartRemoveViewModel
             {
